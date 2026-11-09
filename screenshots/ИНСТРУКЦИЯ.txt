@@ -1,0 +1,3 @@
+01_students_list.png — снимок открытой /students с минимум двумя студентами.
+02_validation_error.png — снимок /students/create после ошибки в email.
+Скриншоты обязательно сделать после настоящего локального запуска Laravel.

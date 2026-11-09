@@ -1,25 +1,29 @@
-# Действия для настоящего Pull Request на GitHub
+# GitHub: публикация и Pull Request — ЛР №45
 
-**В архиве есть локальные коммиты и обе ветки, но нет GitHub-репозитория и Pull Request.** Чтобы создать PR, публикуйте новый пустой приватный репозиторий следующим образом.
+В архиве уже есть настоящая Git-история: `main` содержит только исходный Laravel-проект, а `feature/add-student` — разработанную функциональность и отчёт. **Не выполняйте `git init`, `git reset --hard` или `git merge` перед созданием PR.**
 
-1. Откройте папку проекта и убедитесь, что текущая ветка `main`. Посмотрите историю `git log --oneline --graph --all`.
-2. Найдите хеш самого первого коммита `Create Laravel project` (в подготовленном архиве это `2c00e04`). **Только в этом новом локальном репозитории, до первой публикации**, откатите `main` к нему:
-
-```powershell
-git switch main
-git reset --hard 2c00e04
-```
-
-3. Создайте на github.com пустой **приватный** репозиторий `student-catalog`, без README и .gitignore. Подключите его и опубликуйте обе ветки:
+1. Создайте на GitHub **новый пустой приватный** репозиторий `student-catalog` без автоматического README, лицензии и .gitignore.
+2. Распакуйте архив и откройте терминал **внутри `student-catalog`**, где находятся `.git` и `artisan`.
+3. Выполните, заменив `ВАШ_ЛОГИН` на свой GitHub username:
 
 ```powershell
+git status
+git branch -a
 git remote add origin https://github.com/ВАШ_ЛОГИН/student-catalog.git
 git push -u origin main
 git push -u origin feature/add-student
 ```
 
-4. В GitHub: **Pull requests → New pull request**, base=`main`, compare=`feature/add-student`. Создайте PR с названием `Add student catalog and form validation`, посмотрите файлы и нажмите **Merge pull request**.
-5. Скопируйте ссылки на приватный репозиторий и объединённый PR в Word-отчёт. Дайте преподавателю доступ к приватному репозиторию при необходимости.
-6. Если нужен Word-отчёт в GitHub, добавьте его отдельным коммитом в main после слияния PR: `git add ОТЧЕТ_ЛР45.docx; git commit -m "Add submission report"; git push`.
+Если `origin` уже настроен, используйте `git remote -v`, а не добавляйте его второй раз.
 
-**Не применяйте reset --hard и force push в существующем репозитории с чужими изменениями.** Команда предназначена только для подготовленного локального учебного проекта **до первой публикации**.
+4. На GitHub выберите **Pull requests → New pull request**, base=`main`, compare=`feature/add-student`. Проверьте изменения и создайте PR. После проверки нажмите **Merge pull request**.
+5. Обновите локальную `main`:
+
+```powershell
+git switch main
+git pull --ff-only origin main
+```
+
+6. Скопируйте URL репозитория и **объединённого PR** в `ОТЧЕТ_ЛР45.docx`, затем приложите реальные скриншоты из запущенного приложения.
+
+**Важно:** если у вас уже есть существующий непустой репозиторий с проектом ЛР №44, не перезаписывайте его историю. Эта инструкция предназначена только для **нового пустого репозитория** ЛР №45.

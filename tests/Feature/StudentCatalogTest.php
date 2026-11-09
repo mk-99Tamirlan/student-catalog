@@ -93,9 +93,16 @@ class StudentCatalogTest extends TestCase
 
     public function test_form_contains_csrf_and_old_values_on_error(): void
     {
-        $this->post('/students', $this->validData(['email' => 'broken-email']))
+        $this->from('/students/create')
+            ->post('/students', $this->validData(['email' => 'broken-email']))
+            ->assertRedirect('/students/create')
             ->assertSessionHasErrors('email');
-        $this->get('/students/create')->assertSee('name="_token"', false);
-        // Back redirect / old values are also checked through the Laravel session.
+
+        $this->get('/students/create')
+            ->assertOk()
+            ->assertSee('name="_token"', false)
+            ->assertSee('value="Айдана Серикова"', false)
+            ->assertSee('value="ПО-24-1"', false)
+            ->assertSee('broken-email');
     }
 }
